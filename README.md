@@ -57,6 +57,6 @@ Avec Easymock : voir la refcard et les slides du cours.
 ## Evaluation 
 
 1. faite un fork du repo github
-2. répondez aux questions (dans un nouveau fichier Markdown ou directement dans README.md), dans lequel vous préciserez également les noms du binome.
+2. répondez aux questions (dans le fichier README.md), dans lequel vous préciserez également les noms du binome.
 3. rajoutez vos tests, modifications de la classe sous test, etc. 
 4. soumettez votre pull request (qui servira à l'évaluation)
