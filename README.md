@@ -1,6 +1,6 @@
 # Object-Oriented Software Testing
 
-Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/teaching/m1ice/))
+Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
 
 > Créez un projet Java, récupérez la classe MyPoint, et rajoutez la librairie JUnit à votre projet. 
 
@@ -57,6 +57,6 @@ Avec Easymock : voir la refcard et les slides du cours.
 ## Evaluation 
 
 1. faite un fork du repo github
-2. répondez aux questions (dans un nouveau fichier Markdown ou directement dans README.md), dans lequel vous préciserez également les noms du binome.
+2. répondez aux questions (dans le fichier README.md), dans lequel vous préciserez également les noms du binome.
 3. rajoutez vos tests, modifications de la classe sous test, etc. 
 4. soumettez votre pull request (qui servira à l'évaluation)
