@@ -1,7 +1,7 @@
-package main.fr.ut2j.m1ice.ootesting;
-
 public interface ITranslation {
-	int getTx();
 
-	int getTy();
+	// Cette interface utilise des double afin de correspondre à la classe MyPoint
+	double getTx();
+
+	double getTy();
 }
