@@ -64,3 +64,5 @@ Avec Easymock : voir la refcard et les slides du cours.
 ## Réponse
 
 > Q.1b Il faudras testé les getter plus tôt
+
+> Q.2b Non il peut tout de même ne pas tout couvrir.
