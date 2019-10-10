@@ -1,4 +1,4 @@
-# Object-Oriented Software Testing (Thomas COLETTE)
+# Object-Oriented Software Testing
 
 Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
 
