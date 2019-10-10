@@ -1,4 +1,3 @@
-//Modified by Thomas COLETTE
 package main.fr.ut2j.m1ice.ootesting;
 
 import java.util.Random;

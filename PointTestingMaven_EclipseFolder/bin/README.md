@@ -14,6 +14,8 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
     ...
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+  <br/>En utilisant d'autres opérations à l'intérieur d'un test, on prend le risque que ces opérations puissent avoir des bugs. Il faut donc les tester aussi, et avant si possible.
+  <br/>De plus, on teste ici si une valeur a bien été assignée à une variable. Ce qui est un peu inutile.
 
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
@@ -28,8 +30,9 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+  <br/> Non, les null check par exemple peuvent toujours faire buguer le programme s'il n'y en a pas. 
 
-> Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
+> Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tous les cas cela peut certainement vous aidez à répondre à la question précédente.
 
     @Test public void testCentralSymmetryNULL ( ) {
         new MyPoint ( 1 0 , 2 0 ) . centralSymmetry ( null ) ;
@@ -43,6 +46,7 @@ L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un p
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
+	<br/> Il n'est pas vraiment possible de tester le comportement de Random.nextInt() à l'avance d'où l'impossibilité de créer un test.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 
