@@ -29,8 +29,8 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.x = (!Double.isNaN(x)) ? x : 0d;
+		this.y = (!Double.isNaN(y)) ? y : 0d;
 	}
 
 
@@ -41,7 +41,11 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		this();
+		if (pt != null) {
+			this.x = pt.x;
+			this.y = pt.y;
+		}
 	}
 
 
@@ -50,7 +54,7 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		x = (!Double.isNaN(newX)) ? newX : x;
 	}
 
 
@@ -59,7 +63,7 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		y = (!Double.isNaN(newY)) ? newY : y;
 	}
 
 
@@ -86,7 +90,7 @@ public class MyPoint {
 	 * @since 3.0
 	 */
 	public MyPoint scale(final double sx) {
-		return new MyPoint(x * sx, y * sx);
+		return (!Double.isNaN(sx)) ? new MyPoint(x * sx, y * sx) : this;
 	}
 
 	/**
@@ -97,7 +101,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d * origin.getY() - y);
 	}
 
 
@@ -108,6 +112,9 @@ public class MyPoint {
 	 * @return The angle or NaN if the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
+		if (pt == null) {
+			return Double.NaN;
+		}
 		double angle;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
@@ -118,7 +125,7 @@ public class MyPoint {
 			if(y2 < 0d) {
 				angle = Math.PI * 2d - angle;
 			}
-		}else {
+		} else {
 			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
 		}
 
@@ -134,8 +141,8 @@ public class MyPoint {
 	 * @since 1.9
 	 */
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
-		if(gravityC == null) return null;
-
+		if (gravityC == null) return null;
+		if (Double.isNaN(theta)) return this;
 		final MyPoint pt = new MyPoint();
 		double cosTheta;
 		double sinTheta;
@@ -180,7 +187,7 @@ public class MyPoint {
 	 */
 	public MyPoint centralSymmetry(final MyPoint centre) {
 		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+		return rotatePoint(centre, Math.PI);
 	}
 
 
@@ -189,7 +196,7 @@ public class MyPoint {
 	 * @return The middle point of the current and given points.
 	 */
 	public MyPoint getMiddlePoint(final MyPoint p) {
-		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
+		return (p != null) ? new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d) : null;
 	}
 
 
@@ -200,19 +207,21 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+		if (!Double.isNaN(tx) && !Double.isNaN(ty)) {
+			setX(x + tx);
+			setY(y + ty);
+		}
 	}
 
 
 	/**
-	 * Sets a point using random values provided by random.newInt().
+	 * Sets a point using random values provided by random.nextDouble().
 	 * @param random1 The random number generator used for x.
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+		setX(random1.nextDouble());
+		setY(random2.nextDouble());
 	}
 
 

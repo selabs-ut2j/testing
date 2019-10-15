@@ -28,6 +28,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+>> Pas forcément, les résultats doivent aussi être cohérents et il peut y avoir plusieurs cas pour une seule instruction.
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -42,7 +43,10 @@ Cet exercice est une brève introduction au principe du mock.
 L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un point de manière aléatoire (x avec r1, et y avec r2).
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
-    >> On veut donc utiliser le principe du Mock pour tester cette opération.
+>> En fait, c'est possible (voir code) grâce à Random.setSeed().
+>> Sinon, on ne peut pas prévoir à l'avance ce que va renvoyer la fonction NextXXX() de la classe Random.
+
+>> On veut donc utiliser le principe du Mock pour tester cette opération.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 
