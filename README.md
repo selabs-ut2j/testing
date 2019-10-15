@@ -14,6 +14,8 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
     ...
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+>
+>Non, c'est le seul moyen d'acceder aux variables sans leurs donner un acces public. Il faut les tester en premier. 
 
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
@@ -28,6 +30,8 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+>
+>Pas forcement, il est possible que certains resultats possible de la fonction ne soit pas tester et il faut que les tests soient corrects.
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -43,6 +47,8 @@ L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un p
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
+>
+> Le resultat de la methode Random.nextInt n'est pas previsible donc ce n'est pas possible de tester.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 

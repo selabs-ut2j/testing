@@ -29,8 +29,16 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		if(!Double.isNaN(x)){
+			this.x = x;
+		} else {
+			this.x = 0;
+		}
+		if(!Double.isNaN(y)) {
+			this.y = y;
+		} else {
+			this.y = 0;
+		}
 	}
 
 
@@ -40,8 +48,12 @@ public class MyPoint {
 	 * (0,0) will be used when the given pt is null.
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
-	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+	public MyPoint(final main.fr.ut2j.m1ice.ootesting.MyPoint pt) {
+	    this();
+	    if(pt!=null){
+	        this.x=pt.x;
+            this.y=pt.y;
+        }
 	}
 
 
@@ -50,7 +62,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if(!Double.isNaN(newX)){
+			x = newX;
+		}
 	}
 
 
@@ -59,7 +73,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if(!Double.isNaN(newY)) {
+			y = newY;
+		}
 	}
 
 
@@ -85,8 +101,8 @@ public class MyPoint {
 	 * @return The scaled point.
 	 * @since 3.0
 	 */
-	public MyPoint scale(final double sx) {
-		return new MyPoint(x * sx, y * sx);
+	public main.fr.ut2j.m1ice.ootesting.MyPoint scale(final double sx) {
+		return new main.fr.ut2j.m1ice.ootesting.MyPoint(x * sx, y * sx);
 	}
 
 	/**
@@ -95,9 +111,11 @@ public class MyPoint {
 	 * @return the computed point.
 	 * @throws IllegalArgumentException When the given parameter is null.
 	 */
-	public MyPoint horizontalSymmetry(final MyPoint origin) {
-		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+	public main.fr.ut2j.m1ice.ootesting.MyPoint horizontalSymmetry(final main.fr.ut2j.m1ice.ootesting.MyPoint origin) {
+		if(origin == null) {
+		    throw new IllegalArgumentException();
+		}
+		return new main.fr.ut2j.m1ice.ootesting.MyPoint(x,2d * origin.getY() - y);
 	}
 
 
@@ -107,7 +125,7 @@ public class MyPoint {
 	 * @param pt The point used to compute the angle.
 	 * @return The angle or NaN if the given point null.
 	 */
-	public double computeAngle(final MyPoint pt) {
+	public double computeAngle(final main.fr.ut2j.m1ice.ootesting.MyPoint pt) {
 		double angle;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
@@ -133,10 +151,12 @@ public class MyPoint {
 	 * @return The rotated point.
 	 * @since 1.9
 	 */
-	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
-		if(gravityC == null) return null;
+	public main.fr.ut2j.m1ice.ootesting.MyPoint rotatePoint(final main.fr.ut2j.m1ice.ootesting.MyPoint gravityC, final double theta) {
+		if(gravityC == null) {
+		    return null;
+        }
 
-		final MyPoint pt = new MyPoint();
+		final main.fr.ut2j.m1ice.ootesting.MyPoint pt = new main.fr.ut2j.m1ice.ootesting.MyPoint();
 		double cosTheta;
 		double sinTheta;
 		double angle = theta;
@@ -149,7 +169,9 @@ public class MyPoint {
 
 		angle = angle % (2d * PI);
 
-		if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
+		if(Double.compare(angle, 0d) == 0) {
+		    return new main.fr.ut2j.m1ice.ootesting.MyPoint(this);
+        }
 
 		if(Double.compare(angle - PI / 2d, 0.) == 0) {
 			cosTheta = 0d;
@@ -178,9 +200,11 @@ public class MyPoint {
 	 * @return The resulting point.
 	 * @throws IllegalArgumentException When the given parameter is null.
 	 */
-	public MyPoint centralSymmetry(final MyPoint centre) {
-		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+	public main.fr.ut2j.m1ice.ootesting.MyPoint centralSymmetry(final main.fr.ut2j.m1ice.ootesting.MyPoint centre) {
+		if(centre == null) {
+		    throw new IllegalArgumentException();
+        }
+		return rotatePoint(centre, Math.PI);
 	}
 
 
@@ -188,8 +212,8 @@ public class MyPoint {
 	 * @param p The second point.
 	 * @return The middle point of the current and given points.
 	 */
-	public MyPoint getMiddlePoint(final MyPoint p) {
-		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
+	public main.fr.ut2j.m1ice.ootesting.MyPoint getMiddlePoint(final main.fr.ut2j.m1ice.ootesting.MyPoint p) {
+		return new main.fr.ut2j.m1ice.ootesting.MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
 	}
 
 
@@ -206,7 +230,7 @@ public class MyPoint {
 
 
 	/**
-	 * Sets a point using random values provided by random.newInt().
+	 * Sets a point using random values provided by random.nextInt().
 	 * @param random1 The random number generator used for x.
 	 * @param random2 The random number generator used for y.
 	 */
