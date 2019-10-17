@@ -13,16 +13,17 @@ public class MyPoint {
 	private double y;
 
 	/**
-	 * Constructor 1 Creates a MyPoint with coordinates (0, 0).
-	 * Creates a MyPoint with coordinates (0, 0).
+	 * Constructor 1 Creates a MyPoint with coordinates (0, 0). Creates a MyPoint
+	 * with coordinates (0, 0).
 	 */
 	public MyPoint() {
 		this(0d, 0d);
 	}
 
 	/**
-	 * Constructor 2 Creates a MyPoint with the specified coordinates.
-	 * Creates a MyPoint with the specified coordinates.
+	 * Constructor 2 Creates a MyPoint with the specified coordinates. Creates a
+	 * MyPoint with the specified coordinates.
+	 * 
 	 * @param x The X-coordinate to set.
 	 * @param y The Y-coordinate to set.
 	 */

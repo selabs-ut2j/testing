@@ -13,7 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-@RunWith (MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 class MyPointTest {
 
 	private MyPoint point;
@@ -39,8 +39,6 @@ class MyPointTest {
 		assertEquals(0d, testedValue.getX(), 0.0001);
 		assertEquals(0d, testedValue.getY(), 0.0001);
 	}
-
-	
 
 	@Test
 	void testConstructor3() {
@@ -113,7 +111,7 @@ class MyPointTest {
 		assertEquals(x * 5d, resultPoint.getX(), 0.0001);
 		assertEquals(y * 5d, resultPoint.getY(), 0.0001);
 
-	}	
+	}
 
 	void testHorizontalSymmetryException() {
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -141,74 +139,72 @@ class MyPointTest {
 		assertEquals(15d, resultPoint.getY());
 	}
 
-	
 	@Test
 	void testComputeAngleNull() {
 		assertTrue(Double.isNaN(point.computeAngle(null)));
 	}
-	
+
 	@Test
 	void testComputeAngle1() {
-		MyPoint point1 = new MyPoint(2d,2d);
+		MyPoint point1 = new MyPoint(2d, 2d);
 		Double res;
-		
-		res =point.computeAngle(point1);
-		
-		assertEquals(45.0,res,0.1);
+
+		res = point.computeAngle(point1);
+
+		assertEquals(45.0, res, 0.1);
 	}
-	
+
 	@Test
 	void testComputeAngle2() {
 		MyPoint point1 = new MyPoint();
 		Double res;
-		
-		res =point.computeAngle(point1);
-		
-		assertEquals(0.0,res,0.1);
+
+		res = point.computeAngle(point1);
+
+		assertEquals(0.0, res, 0.1);
 	}
-	
+
 	@Test
 	void testComputeAngle3() {
-		MyPoint point1 = new MyPoint(0d,5d);
+		MyPoint point1 = new MyPoint(0d, 5d);
 		Double res;
-		
-		res =point.computeAngle(point1);
-		
-		assertEquals(90.0,res,0.1);
+
+		res = point.computeAngle(point1);
+
+		assertEquals(90.0, res, 0.1);
 	}
-	
+
 	@Test
 	void testComputeAngle4() {
-		MyPoint point1 = new MyPoint(0d,-1);
+		MyPoint point1 = new MyPoint(0d, -1);
 		Double res;
-		
+
 		res = point.computeAngle(point1);
-		
-		assertEquals(270.0,res,0.1);
+
+		assertEquals(270.0, res, 0.1);
 	}
-	
+
 	@Test
 	void testRotatePointNull() {
 		assertEquals(null, point.rotatePoint(null, 0d));
 	}
-	
+
 	@Test
 	void testRotatePoint1() {
 		point.rotatePoint(point, -1d);
-		
+
 		assertEquals(0d, point.getX());
 		assertEquals(0d, point.getY());
 	}
-	
+
 	@Test
 	void testRotatePoint2() {
 		point.rotatePoint(point, 5d);
-		
+
 		assertEquals(0d, point.getX());
 		assertEquals(0d, point.getY());
 	}
-	
-	
+
 	@Test
 	void testCentralSymmetryNULL() {
 		assertThrows(IllegalArgumentException.class, () -> {
@@ -218,69 +214,68 @@ class MyPointTest {
 
 	@Test
 	void testCentralSymmetry1() {
-		point.centralSymmetry(new MyPoint(0d,5d));
-		
+		point.centralSymmetry(new MyPoint(0d, 5d));
+
 		assertEquals(0d, point.getX());
 		assertEquals(0d, point.getY());
 	}
-	
+
 	@Test
 	void testGetMiddlePoint1() {
 		MyPoint res = point.getMiddlePoint(new MyPoint());
-		
+
 		assertEquals(0d, res.getX());
 		assertEquals(0d, res.getY());
 	}
-	
+
 	@Test
 	void testGetMiddlePoint2() {
-		MyPoint res = point.getMiddlePoint(new MyPoint(5d,2d));
-		
-		assertEquals(2.5, res.getX(),0.1);
+		MyPoint res = point.getMiddlePoint(new MyPoint(5d, 2d));
+
+		assertEquals(2.5, res.getX(), 0.1);
 		assertEquals(1d, res.getY());
 	}
-	
-	
+
 	@Test
 	void testTranslate1() {
-		point.translate(0d,5d);
+		point.translate(0d, 5d);
 		assertEquals(0d, point.getX());
 		assertEquals(5d, point.getY());
 	}
-	
+
 	@Test
 	void testTranslateInterface() {
-		
+
 		ITranslation trans = Mockito.mock(ITranslation.class);
 		Mockito.when(trans.getTx()).thenReturn(5d);
 		Mockito.when(trans.getTy()).thenReturn(1d);
-		
+
 		point.translate(trans);
-		
+
 		assertEquals(5d, point.getX());
 		assertEquals(1d, point.getY());
 	}
-	
+
 	@Test
 	void testTranslateNULL() {
 		point.translate(null);
-		
+
 		assertEquals(0d, point.getX());
 		assertEquals(0d, point.getY());
 	}
-	
+
 	@Test
-	void testSetPoint1() { //TODO
+	void testSetPoint1() { // TODO
 		Random random = Mockito.mock(Random.class);
 		Mockito.when((random).nextDouble()).thenReturn(0d);
-		
+
 		Random random2 = Mockito.mock(Random.class);
 		Mockito.when((random2).nextDouble()).thenReturn(5d);
 
 		point.setPoint(random, random2);
-		
+
 		assertEquals(0d, point.getX());
 		assertEquals(5d, point.getY());
-	}	
-	
+	}
+
 }
