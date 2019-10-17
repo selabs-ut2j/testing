@@ -1,3 +1,8 @@
+# Rendu du tp d'introduction au test
+réalisé par Quentin CESCHIN
+
+A LIRE : j'ai ajouter le contrôle d'erreur dans les fonctions où le commentaire de la fonction mentionnait une gestion d'erreur. Les autres n'en ont pas.
+
 # Object-Oriented Software Testing
 
 Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
@@ -15,19 +20,28 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
 
+
+Les tests réalisés sur les constructeurs ne sont pas très utiles car ils reviennent à tester les fonctionnalitées du langage java et non celles de notre classe 
+
+
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
 > Q.1d Testez le constructeur 3 et l’opération scale. Plusieurs tests (i.e. plusieurs opérations) seront nécessaires pour le constructeur 3. Vous pouvez constater que la plupart des tests nécessitent la création d’un point au début des opérations de test.
 
 > Q.1e Définissez et utilisez l’opération @Before setUp() et tout ce qui est également nécessaire pour déléguer cette création à l’opération setUp.
 
+
 > Q.1f Testez l’opération horizontalSymmetry. Là encore, plusieurs tests (i.e. plusieurs opérations) seront nécessaires. Vous remarquerez que cette opération peut lever une exception. Utilisez le paramètre expected de l’annotation Test pour vérifier que cette exception est bien levée en temps voulu.
+
+le paramètre expected viens de JUnit4 et n'est pas compatible avec ma version (JUnit5),j'ai donc un peu modifier la façon de faire.
 
 ## Couverture de code
 
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+
+Il est un peu plus sûr que sans, mais cela ne fais pas foi. De plus les contructeurs basique n'ont pas forcément besoin d'être testé. De plus il faut s'assurer des bons comportement des fonctions.
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -43,6 +57,7 @@ L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un p
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
+	Le coté random ne nous permet pas de prévoir le résultat attentu pour l'assertion.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 
