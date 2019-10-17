@@ -225,6 +225,23 @@ class MyPointTest {
 	}
 	
 	@Test
+	void testGetMiddlePoint1() {
+		MyPoint res = point.getMiddlePoint(new MyPoint());
+		
+		assertEquals(0d, res.getX());
+		assertEquals(0d, res.getY());
+	}
+	
+	@Test
+	void testGetMiddlePoint2() {
+		MyPoint res = point.getMiddlePoint(new MyPoint(5d,2d));
+		
+		assertEquals(2.5, res.getX(),0.1);
+		assertEquals(1d, res.getY());
+	}
+	
+	
+	@Test
 	void testTranslate1() {
 		point.translate(0d,5d);
 		assertEquals(0d, point.getX());
