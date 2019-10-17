@@ -1,7 +1,7 @@
 # Rendu du tp d'introduction au test
 réalisé par Quentin CESCHIN
 
-A LIRE : j'ai ajouter le contrôle d'erreur dans les fonctions où le commentaire de la fonction mentionnait une gestion d'erreur
+A LIRE : j'ai ajouter le contrôle d'erreur dans les fonctions où le commentaire de la fonction mentionnait une gestion d'erreur. Les autres n'en ont pas.
 
 # Object-Oriented Software Testing
 
