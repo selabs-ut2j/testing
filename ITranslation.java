@@ -1,7 +1,7 @@
 package main.fr.ut2j.m1ice.ootesting;
 
 public interface ITranslation {
-	int getTx();
+	double getTx();
 
-	int getTy();
+	double getTy();
 }
