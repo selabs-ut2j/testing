@@ -29,8 +29,8 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		this.setX(x);
+		this.setY(y);
 	}
 
 
@@ -41,7 +41,11 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		super();
+		if (pt != null) {
+			this.setX(pt.x);
+			this.setY(pt.y);
+		}
 	}
 
 
@@ -50,7 +54,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if (!Double.isNaN(newX)) {
+			x = newX;
+		}
 	}
 
 
@@ -59,7 +65,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if (!Double.isNaN(newY)) {
+			y = newY;
+		}
 	}
 
 
@@ -86,7 +94,12 @@ public class MyPoint {
 	 * @since 3.0
 	 */
 	public MyPoint scale(final double sx) {
-		return new MyPoint(x * sx, y * sx);
+		if (!Double.isNaN(sx)) {
+			return new MyPoint(x * sx, y * sx);
+		}
+		else {
+			return this;
+		}
 	}
 
 	/**
@@ -97,7 +110,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d * origin.getY() -y);
 	}
 
 
@@ -113,7 +126,7 @@ public class MyPoint {
 		final double y2 = pt.getY() - y;
 
 		if(Double.compare(x2, 0d) == 0) {
-			angle = Math.PI / 3d;
+			angle = Math.PI / 2d;
 
 			if(y2 < 0d) {
 				angle = Math.PI * 2d - angle;
@@ -137,11 +150,9 @@ public class MyPoint {
 		if(gravityC == null) return null;
 
 		final MyPoint pt = new MyPoint();
-		double cosTheta;
-		double sinTheta;
 		double angle = theta;
 		final double gx = gravityC.getX();
-		final double gy = gravityC.getX();
+		final double gy = gravityC.getY();
 
 		if(angle < 0d) {
 			angle = 2d * PI + angle;
@@ -149,24 +160,9 @@ public class MyPoint {
 
 		angle = angle % (2d * PI);
 
-		if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
-
-		if(Double.compare(angle - PI / 2d, 0.) == 0) {
-			cosTheta = 0d;
-			sinTheta = 1d;
-		}else if(Double.compare(angle - PI, 0d) == 0) {
-			cosTheta = -1d;
-			sinTheta = 0d;
-		}else if(Double.compare(angle - (3d * PI / 2d), 0d) == 0) {
-			cosTheta = 0d;
-			sinTheta = -1d;
-		}else {
-			cosTheta = Math.cos(angle);
-			sinTheta = Math.sin(angle);
-		}
-
-		pt.setX(cosTheta * (x - gx) - sinTheta * (y - gy) + gx);
-		pt.setY(sinTheta * (x - gx) + cosTheta * (y - gy) + gy);
+		pt.setX(Math.cos(angle) * (x - gx) - Math.sin(angle) * (y - gy) + gx);
+		pt.setY(Math.sin(angle) * (x - gx) + Math.cos(angle) * (y - gy) + gy);
+		
 
 		return pt;
 	}
@@ -180,7 +176,7 @@ public class MyPoint {
 	 */
 	public MyPoint centralSymmetry(final MyPoint centre) {
 		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+		return rotatePoint(centre, Math.PI);
 	}
 
 
@@ -189,6 +185,7 @@ public class MyPoint {
 	 * @return The middle point of the current and given points.
 	 */
 	public MyPoint getMiddlePoint(final MyPoint p) {
+		if(p == null) throw new IllegalArgumentException();
 		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
 	}
 
@@ -200,8 +197,10 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+		if(Double.NaN != tx || Double.NaN != ty) {
+			setX(x + tx);
+			setY(y + ty);
+		}
 	}
 
 
