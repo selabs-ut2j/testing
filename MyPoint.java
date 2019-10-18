@@ -128,30 +128,6 @@ public class MyPoint {
 		return new MyPoint( x, 2d * origin.getY() - y);
 	}
 
-
-	/**
-	 * Computes the angle of the given point where the calling point is used as
-	 * the gravity centre.
-	 * @param pt The point used to compute the angle.
-	 * @return The angle or NaN if the given point null.
-	 */
-//	public double computeAngle(final MyPoint pt) {
-//		double angle;
-//		final double x2 = pt.getX() - x;
-//		final double y2 = pt.getY() - y;
-//
-//		if(Double.compare(x2, 0d) == 0) {
-//			angle = Math.PI / 3d;
-//
-//			if(y2 < 0d) {
-//				angle = Math.PI * 2d - angle;
-//			}
-//		}else {
-//			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
-//		}
-//
-//		return angle;
-//	}
 	
 	/**
 	 * Computes the angle of the given point where the calling point is used as
@@ -168,50 +144,13 @@ public class MyPoint {
 
 	}
 
-//	/**
-//	 * Rotates a point with as reference another point.
-//	 * @param gravityC The point of reference.
-//	 * @param theta The angle of rotation in radian.
-//	 * @return The rotated point.
-//	 * @since 1.9
-//	 */
-//	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
-//		if(gravityC == null) return null;
-//
-//		final MyPoint pt = new MyPoint();
-//		double cosTheta;
-//		double sinTheta;
-//		double angle = theta;
-//		final double gx = gravityC.getX();
-//		final double gy = gravityC.getX();
-//
-//		if(angle < 0d) {
-//			angle = 2d * PI + angle;
-//		}
-//
-//		angle = angle % (2d * PI);
-//
-//		if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
-//
-//		if(Double.compare(angle - PI / 2d, 0.) == 0) {
-//			cosTheta = 0d;
-//			sinTheta = 1d;
-//		}else if(Double.compare(angle - PI, 0d) == 0) {
-//			cosTheta = -1d;
-//			sinTheta = 0d;
-//		}else if(Double.compare(angle - (3d * PI / 2d), 0d) == 0) {
-//			cosTheta = 0d;
-//			sinTheta = -1d;
-//		}else {
-//			cosTheta = Math.cos(angle);
-//			sinTheta = Math.sin(angle);
-//		}
-//
-//		pt.setX(cosTheta * (x - gx) - sinTheta * (y - gy) + gx);
-//		pt.setY(sinTheta * (x - gx) + cosTheta * (y - gy) + gy);
-//
-//		return pt;
-//	}
+	//	/**
+	//	 * Rotates a point with as reference another point.
+	//	 * @param gravityC The point of reference.
+	//	 * @param theta The angle of rotation in radian.
+	//	 * @return The rotated point.
+	//	 * @since 1.9
+	//	 */
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
 		if(gravityC == null)  throw new IllegalArgumentException();
 		if(!this.isDouble(theta))  throw new IllegalArgumentException();
