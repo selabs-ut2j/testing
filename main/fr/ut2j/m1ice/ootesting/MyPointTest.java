@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+
 class MyPointTest {
 	
 	MyPoint myPointA; // MyPoint with the empty constructor
@@ -151,39 +152,5 @@ class MyPointTest {
 		});
 	}
 	
-	@Test
-	void testComputeAngle() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testRotatePoint() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testCentralSymmetry() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testGetMiddlePoint() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testTranslateDoubleDouble() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testSetPoint() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	void testTranslateITranslation() {
-		fail("Not yet implemented");
-	}
 
 }
