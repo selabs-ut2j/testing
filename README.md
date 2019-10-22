@@ -13,7 +13,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
     assertEquals (0d, point . getX (), 0.0001);
     ...
 
-> Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+> Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ? → Ce n'est pas etrange qu'un test utilise un d'autres operations, mais avant d'utiliser cette operations il faut l'avoir au preablement tester
 
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
@@ -27,7 +27,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
-> Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+> Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ? → Le code ne peut pas etre 100 % sur car il se peut que certain cas ne soit pas testable ou bien que notre couverture de test ne couvre pas ce dernier
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -41,7 +41,8 @@ Cet exercice est une brève introduction au principe du mock.
 
 L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un point de manière aléatoire (x avec r1, et y avec r2).
 
-> Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
+> Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération. → il est impossible de tester en l'etat cette methode car cette dernier utilise le ramdomint donc il serait impossible de tester cette derniere car elle retourne un chiffer aleatoire a chaque fois
+
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
