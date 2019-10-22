@@ -8,7 +8,7 @@ import static java.lang.Math.atan;
 /**
  * A Basic point with double values.
  */
-public class MyPoint {
+public class MyPoint implements ITranslation {
 	private double x;
 	private double y;
 
@@ -27,8 +27,11 @@ public class MyPoint {
 	 * @param x The X-coordinate to set.
 	 * @param y The Y-coordinate to set.
 	 */
-	public MyPoint(final double x, final double y) {
+	public MyPoint(final double x, final double y) throws IllegalArgumentException {
 		super();
+		if (Double.isNaN(x) || Double.isNaN(y)) {
+			throw new IllegalArgumentException("Illegal Argument");
+		}
 		this.x = x;
 		this.y = y;
 	}
@@ -36,12 +39,18 @@ public class MyPoint {
 
 	/**
 	 * Constructor 3
-	 * Creates a point from a IMyPoint.
+	 * Creates a point from a MyPoint.
 	 * (0,0) will be used when the given pt is null.
-	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
+	 * @param pt The MyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		if (pt == null) {
+			this.setX(0);
+			this.setY(0);
+		}else {
+			this.setX(pt.x);
+			this.setY(pt.y);
+		}
 	}
 
 
@@ -50,7 +59,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if (!Double.isNaN(newX)) {
+			this.x = newX;
+		}
 	}
 
 
@@ -59,7 +70,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if (!Double.isNaN(newY)) {
+			this.y = newY;
+		}
 	}
 
 
@@ -97,9 +110,8 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d*origin.getY() - y);
 	}
-
 
 	/**
 	 * Computes the angle of the given point where the calling point is used as
@@ -224,5 +236,19 @@ public class MyPoint {
 		if(translation != null) {
 			translate(translation.getTx(), translation.getTy());
 		}
+	}
+
+
+	@Override
+	public int getTx() {
+		// TODO Auto-generated method stub
+		return new Double(x).intValue();
+	}
+
+
+	@Override
+	public int getTy() {
+		// TODO Auto-generated method stub
+		return new Double(y).intValue();
 	}
 }
