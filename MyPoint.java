@@ -59,7 +59,7 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		y = newY;
 	}
 
 
@@ -97,7 +97,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d * origin.getY() - y);
 	}
 
 
@@ -113,7 +113,7 @@ public class MyPoint {
 		final double y2 = pt.getY() - y;
 
 		if(Double.compare(x2, 0d) == 0) {
-			angle = Math.PI / 3d;
+			angle = Math.PI / 2d;
 
 			if(y2 < 0d) {
 				angle = Math.PI * 2d - angle;
