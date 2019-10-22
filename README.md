@@ -60,3 +60,11 @@ Avec Easymock : voir la refcard et les slides du cours.
 2. rÃ©pondez aux questions (dans le fichier README.md), dans lequel vous prÃ©ciserez Ã©galement les noms du binome.
 3. rajoutez vos tests, modifications de la classe sous test, etc. 
 4. soumettez votre pull request (qui servira Ã  l'Ã©valuation)
+
+## Réponses aux questions (M1ICE Antoine Dupuy)
+
+> Q.1b Il est nécessaire de tester les opérations avant de les utiliser dans de futurs tests. Ainsi, il nous faut tester au préalable les opérations getX() et getY().
+
+> Q.2b Le code ne peut pas être certifié sûr même si il est couvert par au moins un test. En effet les tests ne nous montrent que la présence de bug et non l'absence. Ils sont contraints par notre vision de ce que le code doit produire en terme de comportement et structure.
+
+> Q.3a Il nous est impossible de tester ce qui pourrait nous être renvoyer par les fonctions de nextInt. Ainsi, il nous est nécessaire de mocker les objets Random.
