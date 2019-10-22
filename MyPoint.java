@@ -36,12 +36,15 @@ public class MyPoint {
 
 	/**
 	 * Constructor 3
-	 * Creates a point from a IMyPoint.
+	 * Creates a point from a MyPoint.
 	 * (0,0) will be used when the given pt is null.
-	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
+	 * @param pt The MyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		if (pt != null) {
+			this.x = pt.x;
+			this.y = pt.y;
+		}
 	}
 
 
@@ -50,7 +53,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if (!Double.isNaN(newX)) {
+			x = newX;
+		}
 	}
 
 
@@ -59,7 +64,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if (!Double.isNaN(newY)) {
+			y = newY;
+		}
 	}
 
 
@@ -96,7 +103,7 @@ public class MyPoint {
 	 * @throws IllegalArgumentException When the given parameter is null.
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
-		if(origin == null) throw new IllegalArgumentException();
+		if(origin == null) throw new IllegalArgumentException("Not null origin");
 		return new MyPoint(2d * origin.getX() - x, y);
 	}
 
@@ -108,6 +115,7 @@ public class MyPoint {
 	 * @return The angle or NaN if the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
+		if (pt == null) return Double.NaN;
 		double angle;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
@@ -141,7 +149,7 @@ public class MyPoint {
 		double sinTheta;
 		double angle = theta;
 		final double gx = gravityC.getX();
-		final double gy = gravityC.getX();
+		final double gy = gravityC.getY();
 
 		if(angle < 0d) {
 			angle = 2d * PI + angle;
@@ -151,7 +159,7 @@ public class MyPoint {
 
 		if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
 
-		if(Double.compare(angle - PI / 2d, 0.) == 0) {
+		if(Double.compare(angle - PI / 2d, 0d) == 0) {
 			cosTheta = 0d;
 			sinTheta = 1d;
 		}else if(Double.compare(angle - PI, 0d) == 0) {
@@ -179,8 +187,8 @@ public class MyPoint {
 	 * @throws IllegalArgumentException When the given parameter is null.
 	 */
 	public MyPoint centralSymmetry(final MyPoint centre) {
-		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+		if(centre == null) throw new IllegalArgumentException("Not null center");
+		return this.rotatePoint(centre, Math.PI);
 	}
 
 
