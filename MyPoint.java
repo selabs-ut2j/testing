@@ -1,3 +1,4 @@
+//package main.fr.ut2j.m1ice.ootesting;
 
 import java.util.Random;
 
@@ -115,10 +116,14 @@ public class MyPoint {
 	 * @return The angle or NaN if the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
+		if(pt == null) 
+			return Double.NaN;
+		
 		double angle;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
 
+				
 		if(Double.compare(x2, 0d) == 0) {
 			angle = Math.PI / 3d;
 
@@ -207,8 +212,11 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+		if(tx != Double.NaN && tx != Double.NaN) {
+			setX(x + tx);
+			setY(y + ty);
+		}
+		
 	}
 
 

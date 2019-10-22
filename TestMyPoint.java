@@ -6,8 +6,8 @@ import org.junit.jupiter.api.Test;
 
 class TestMyPoint {
 
-	MyPoint point, point2, point3, pointnull, pointScale1, pointScale2, pointScale3, pointScale4, pointScale5, pointHorizontale;
-	
+	MyPoint point, point2, point3, pointnull, pointScale1, pointScale2, pointScale3, pointScale4, pointScale5, pointHorizontale, pointCentral, rotatePointNeg, rotatePoint, rotatePointNull, pointMiddle, pointTranslate, pointTranslateXNull, pointTranslateYNull;
+	Double computeX0, computeYNeg, computeXNeg, computeXPos;
 	@BeforeEach
 	void setUp() throws Exception {
 		point   	= new MyPoint();
@@ -20,6 +20,15 @@ class TestMyPoint {
 		pointScale4 = point2.scale(0);
 		pointScale5 = point2.scale(Double.NaN);
 		pointHorizontale = new MyPoint(5d, 5d);
+		computeX0 = point2.computeAngle(point2);
+		computeYNeg = point2.computeAngle(new MyPoint(1d, 1d));
+		computeXNeg = point2.computeAngle(new MyPoint(0d, 2d));
+		computeXPos = point2.computeAngle(new MyPoint(2d, 2d));
+		rotatePoint = point2.rotatePoint(point2, 0);
+		rotatePointNeg = point2.rotatePoint(point2, -90d);
+		rotatePointNull = point2.rotatePoint(null, 180d);
+		pointCentral = point2.centralSymmetry(new MyPoint(2, 3));
+		pointMiddle = point2.getMiddlePoint(new MyPoint(3d, 4d));		
 	}
 
 	@AfterEach
@@ -34,6 +43,7 @@ class TestMyPoint {
 		pointScale4 = null;
 		pointScale5 = null;
 		pointHorizontale = null;
+		rotatePoint = null;
 	}
 
 	@Test
@@ -124,27 +134,59 @@ class TestMyPoint {
 
 	@Test
 	void testComputeAngle() {
-		fail("Not yet implemented");
+		assertEquals(Double.NaN, point2.computeAngle(null), 0.0001);
+		assertEquals(1.047, computeX0, 0.001);
+		assertEquals(5.23, computeYNeg, 0.01);
+		assertEquals(3.14, computeXNeg, 0.01);
+		assertEquals(0, computeXPos, 0.01);
+		assertNotNull(point2.computeAngle(pointHorizontale));
 	}
 
 	@Test
 	void testRotatePoint() {
-		fail("Not yet implemented");
+		assertEquals(1, rotatePoint.getX(),0.0001);
+		assertEquals(2d, rotatePoint.getY(), 0.0001);
+		
+		assertNotNull(rotatePointNeg);
+		assertNull(rotatePointNull);
 	}
 
 	@Test
 	void testCentralSymmetry() {
-		fail("Not yet implemented");
+		assertThrows(IllegalArgumentException.class, () -> {
+			new MyPoint ( 1d , 2d ) . centralSymmetry ( null ) ;		
+		});
+		assertEquals(1, pointCentral.getX(), 0.0001);
+		assertEquals(2, pointCentral.getY(), 0.0001);
+
+		//fail("Not yet implemented");
 	}
 
 	@Test
 	void testGetMiddlePoint() {
-		fail("Not yet implemented");
+		assertEquals(2, pointMiddle.getX(),0.0001);
+		assertEquals(3, pointMiddle.getY(),0.0001);
 	}
 
 	@Test
 	void testTranslateDoubleDouble() {
-		fail("Not yet implemented");
+		point2.translate(2d, 2d);
+		assertEquals(3d, point2.getX(), 0.0001);
+		assertEquals(4d, point2.getY(), 0.0001);
+		
+		// Test si y est null
+		point2.translate(1d, Double.NaN);
+		assertEquals(3d, point2.getX(), 0.0001);
+		assertEquals(4d, point2.getY(), 0.0001);
+
+		//Test si x est null
+		point2.translate(Double.NaN, 1d);
+		assertEquals(3d, point2.getX(), 0.0001);
+		assertEquals(4d, point2.getY(), 0.0001);
+		
+		point2.translate(Double.NaN, Double.NaN);
+		assertEquals(3d, point2.getX(), 0.0001);
+		assertEquals(4d, point2.getY(), 0.0001);
 	}
 
 	@Test
@@ -156,5 +198,7 @@ class TestMyPoint {
 	void testTranslateITranslation() {
 		fail("Not yet implemented");
 	}
+	
+	
 
 }
