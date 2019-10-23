@@ -4,6 +4,8 @@ import java.util.Random;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.atan;
+import static java.lang.Math.abs;
+import static java.lang.Math.signum;
 
 /**
  * A Basic point with double values.
@@ -59,7 +61,7 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		y = newY;
 	}
 
 
@@ -97,7 +99,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d * origin.getY() - y);
 	}
 
 
@@ -109,20 +111,33 @@ public class MyPoint {
 	 */
 	public double computeAngle(final MyPoint pt) {
 		double angle;
+		double signe;
+		double correction;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
-
-		if(Double.compare(x2, 0d) == 0) {
-			angle = Math.PI / 3d;
-
-			if(y2 < 0d) {
-				angle = Math.PI * 2d - angle;
+		
+		
+		if (x2 == 0) {
+			
+			if (y2==0) {
+				signe = 0;
+				angle = 0;
+			}else {
+				signe = signum(y2);
+				angle = Math.PI/2;
 			}
+			correction = 0;
+		}else if(y2 == 0) {
+			signe = 1;
+			angle = x2>0 ? 0: Math.PI;
+			correction = 0;
 		}else {
-			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
+			signe = signum(y2)*signum(x2);
+			angle = atan(abs(y2/x2));
+			correction = x2 > 0d ? Math.PI/2 : 0;
 		}
-
-		return angle;
+		
+		return signe * (correction + angle);
 	}
 
 
@@ -136,9 +151,7 @@ public class MyPoint {
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
 		if(gravityC == null) return null;
 
-		final MyPoint pt = new MyPoint();
-		double cosTheta;
-		double sinTheta;
+		MyPoint pt = new MyPoint();
 		double angle = theta;
 		final double gx = gravityC.getX();
 		final double gy = gravityC.getX();
@@ -146,24 +159,11 @@ public class MyPoint {
 		if(angle < 0d) {
 			angle = 2d * PI + angle;
 		}
-
 		angle = angle % (2d * PI);
-
 		if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
-
-		if(Double.compare(angle - PI / 2d, 0.) == 0) {
-			cosTheta = 0d;
-			sinTheta = 1d;
-		}else if(Double.compare(angle - PI, 0d) == 0) {
-			cosTheta = -1d;
-			sinTheta = 0d;
-		}else if(Double.compare(angle - (3d * PI / 2d), 0d) == 0) {
-			cosTheta = 0d;
-			sinTheta = -1d;
-		}else {
-			cosTheta = Math.cos(angle);
-			sinTheta = Math.sin(angle);
-		}
+		
+		final double cosTheta = Math.cos(angle);
+		final double sinTheta = Math.sin(angle);
 
 		pt.setX(cosTheta * (x - gx) - sinTheta * (y - gy) + gx);
 		pt.setY(sinTheta * (x - gx) + cosTheta * (y - gy) + gy);
@@ -180,7 +180,7 @@ public class MyPoint {
 	 */
 	public MyPoint centralSymmetry(final MyPoint centre) {
 		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+		return rotatePoint(centre, Math.PI);
 	}
 
 
@@ -211,8 +211,8 @@ public class MyPoint {
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+		setX(random1.nextDouble());
+		setY(random2.nextDouble());
 	}
 
 
