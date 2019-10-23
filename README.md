@@ -1,3 +1,5 @@
+Rémi BE
+
 # Object-Oriented Software Testing
 
 Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
@@ -14,6 +16,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
     ...
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+Oui, créer la fonction toString
 
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
@@ -28,6 +31,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+Non.
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
