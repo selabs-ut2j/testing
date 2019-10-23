@@ -1,15 +1,21 @@
 package test;
 
 import main.fr.ut2j.m1ice.ootesting.MyPoint;
-
+import main.fr.ut2j.m1ice.ootesting.ITranslation;
 import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.Random;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith (MockitoJUnitRunner.class)
 class MyPointTest {
-	private final double x = 4;
+	private final double x = 3;
 	private final double y = 5;
 	private MyPoint point1;
 	private MyPoint point2;
@@ -132,8 +138,83 @@ class MyPointTest {
 		MyPoint point3 = new MyPoint(0,3);
 		MyPoint point4 = new MyPoint(3,0);
 		MyPoint point5 = new MyPoint(0,-3);
-		assertEquals(0, this.point1.computeAngle(this.point1),0.0001);
+		MyPoint point6 = new MyPoint(-3,0);
+		assertEquals(0.0, this.point1.computeAngle(this.point1),0.0001);
+		assertEquals(Math.PI/2, this.point1.computeAngle(point3), 0.0001);
+		assertEquals(0.0, this.point1.computeAngle(point4), 0.0001);
+		assertEquals(-Math.PI/2, this.point1.computeAngle(point5), 0.0001);
+		assertEquals(Math.PI, this.point1.computeAngle(point6), 0.0001);
 	}
 	
+	@Test
+	void testRotateAngle1() {
+		MyPoint point3 = this.point2.rotatePoint(this.point1, Math.PI/2);
+		assertEquals(point3.getX(), -this.point2.getY(),0.0001);
+		assertEquals(point3.getY(), this.point2.getX(),0.0001);
+	}
 	
+	@Test
+	void testRotateAngle2() {
+		MyPoint point3 = this.point2.rotatePoint(this.point1, Math.PI);
+		assertEquals(point3.getX(), -this.point2.getX(),0.0001);
+		assertEquals(point3.getY(), -this.point2.getY(),0.0001);
+	}
+	
+	@Test
+	void testRotateAngle3() {
+		MyPoint point3 = this.point2.rotatePoint(this.point1, 3*Math.PI/2);
+		assertEquals(point3.getX(), this.point2.getY(),0.0001);
+		assertEquals(point3.getY(), -this.point2.getX(),0.0001);
+	}
+	
+	@Test
+	void testRotateAngle4() {
+		MyPoint point3 = this.point2.rotatePoint(this.point1, 2*Math.PI);
+		assertEquals(point3.getX(), this.point2.getX(),0.0001);
+		assertEquals(point3.getY(), this.point2.getY(),0.0001);
+	}
+	
+	@Test
+	void testCentralSymmetry() {
+		MyPoint point3 = this.point2.centralSymmetry(this.point1);
+		assertEquals(point3.getX(),-this.point2.getX(),0.0001);
+		assertEquals(point3.getY(),-this.point2.getY(),0.0001);
+	}
+	
+	@Test
+	void testCentralSymmetryException() {
+		MyPoint point3 = null;
+		assertThrows(IllegalArgumentException.class,()-> {this.point2.centralSymmetry(point3);});
+	}
+	
+	@Test
+	void testMiddlePoint() {
+		MyPoint point3 = this.point2.getMiddlePoint(this.point2);
+		assertEquals(point3.getX(), this.point2.getX(), 0.0001);
+		assertEquals(point3.getY(), this.point2.getY(), 0.0001);
+	}
+	
+	@Test
+	void testSetPoint() {
+		Random rand1 = Mockito.mock(Random.class);
+		Mockito.when((rand1).nextDouble()).thenReturn(3d);
+		
+		Random rand2 = Mockito.mock(Random.class);
+		Mockito.when((rand2).nextDouble()).thenReturn(7d);
+		
+		this.point1.setPoint(rand1, rand2);
+		
+		assertEquals(3.0, this.point1.getX());
+		assertEquals(7.0, this.point1.getY());
+	}
+	
+	@Test
+	void testITranslation() {
+		ITranslation trans = Mockito.mock(ITranslation.class);
+		Mockito.when(trans.getTx()).thenReturn(1);
+		Mockito.when(trans.getTy()).thenReturn(1);
+		this.point1.translate(trans);
+		assertEquals(this.point1.getX(), 1.0);
+		assertEquals(this.point1.getY(), 1.0);
+	}
 }
