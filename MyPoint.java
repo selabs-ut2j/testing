@@ -1,4 +1,4 @@
-package main.fr.ut2j.m1ice.ootesting;
+package testfiles;
 
 import java.util.Random;
 
@@ -29,8 +29,13 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		if(!Double.isNaN(x) && !Double.isNaN(y)) {
+			this.x = x;
+			this.y = y;
+		} else {
+			this.x = 0d;
+			this.y = 0d;
+		}
 	}
 
 
@@ -41,7 +46,13 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		if (pt == null) {
+			this.x = 0.0;
+			this.y = 0.0;
+		} else {
+			this.x = pt.x;
+			this.y = pt.y;
+		}
 	}
 
 
@@ -50,7 +61,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if(!Double.isNaN(newX)) {
+			x = newX;
+		}
 	}
 
 
@@ -59,7 +72,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if(!Double.isNaN(newY)) {
+			y = newY;	
+		}
 	}
 
 
@@ -86,7 +101,11 @@ public class MyPoint {
 	 * @since 3.0
 	 */
 	public MyPoint scale(final double sx) {
-		return new MyPoint(x * sx, y * sx);
+		if (!Double.isNaN(sx)) {
+			return new MyPoint(x * sx, y * sx);
+		} else {
+			return new MyPoint(x,y);
+		}
 	}
 
 	/**
@@ -108,10 +127,14 @@ public class MyPoint {
 	 * @return The angle or NaN if the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
+		// If MyPoint in parameter is null we return Double.NaN
+		if(pt == null)
+			return Double.NaN;
+		
 		double angle;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
-
+		
 		if(Double.compare(x2, 0d) == 0) {
 			angle = Math.PI / 3d;
 
@@ -135,6 +158,7 @@ public class MyPoint {
 	 */
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
 		if(gravityC == null) return null;
+		if (Double.isNaN(theta)) return this;
 
 		final MyPoint pt = new MyPoint();
 		double cosTheta;
@@ -189,6 +213,7 @@ public class MyPoint {
 	 * @return The middle point of the current and given points.
 	 */
 	public MyPoint getMiddlePoint(final MyPoint p) {
+		if(p == null) throw new IllegalArgumentException();
 		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
 	}
 
@@ -211,8 +236,8 @@ public class MyPoint {
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+		setX(random1.nextDouble());
+		setY(random2.nextDouble());
 	}
 
 

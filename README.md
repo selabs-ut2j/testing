@@ -1,5 +1,6 @@
 # Object-Oriented Software Testing
 
+Kamal AARAB
 Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
 
 > Créez un projet Java, récupérez la classe MyPoint, et rajoutez la librairie JUnit à votre projet. 
@@ -13,7 +14,10 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
     assertEquals (0d, point . getX (), 0.0001);
     ...
 
+Réponse : Tester les constructeurs reviendrait à tester le bon fonctionnement de l'initialisation des objets et donc de tester le langage.
+
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+Réponse : Il faut d'abord tester le bon fonctionnement de ces opérations, et donc écrire des tests pour ces accesseurs.
 
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
@@ -28,6 +32,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+Réponse : Non le code ne sera pas encore sûr car il peut couvrir toutes les branches du code et les différents mais tant qu'il ne prendra pas en compte toutes les possibillités il ne sera pas sûr.
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -43,6 +48,7 @@ L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un p
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
+Réponse : On ne peut pas prévoir le résultat d'un random.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 
