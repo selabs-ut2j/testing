@@ -1,7 +1,7 @@
-package main.fr.ut2j.m1ice.ootesting;
+package testfiles;
 
 public interface ITranslation {
-	int getTx();
-
-	int getTy();
+	// Used double, not int for corresponding at MyPoint class and their attributes.
+	double getTx();
+	double getTy();
 }
