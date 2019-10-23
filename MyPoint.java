@@ -1,5 +1,3 @@
-package main.fr.ut2j.m1ice.ootesting;
-
 import java.util.Random;
 
 import static java.lang.Math.PI;
@@ -17,7 +15,8 @@ public class MyPoint {
 	 * Creates a MyPoint with coordinates (0, 0).
 	 */
 	public MyPoint() {
-		this(0d, 0d);
+		this.x = 0d;
+		this.y = 0d;
 	}
 
 
@@ -29,8 +28,17 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+
+        // Le point est créé avec les coordonnées (0,0) si ce ne sont pas des double qui sont passés en paramètre
+		if(!Double.isNaN(x) && !Double.isNaN(y)){
+            this.x = x;
+            this.y = y;
+        }else{
+		    this.x = 0d;
+		    this.y = 0d;
+        }
+
+
 	}
 
 
@@ -41,7 +49,17 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		super();
+
+		// Si le point passé en paramètre est null, le nouveau point est créé avec les coordonnées (0,0)
+		if (!(pt == null)) {
+			this.x = pt.x;
+			this.y = pt.y;
+		} else {
+			this.x = 0d;
+			this.y = 0d;
+		}
+
 	}
 
 
@@ -50,7 +68,11 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+
+	    // La coordonnée n'est pas modifiée si ce n'est pas un double qui est passé en paramètre
+		if (!Double.isNaN(newX)) {
+			x = newX;
+		}
 	}
 
 
@@ -59,7 +81,11 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+
+        // La coordonnée n'est pas modifiée si ce n'est pas un double qui est passé en paramètre
+		if (!Double.isNaN(newY)) {
+			y = newY;
+		}
 	}
 
 
@@ -86,7 +112,11 @@ public class MyPoint {
 	 * @since 3.0
 	 */
 	public MyPoint scale(final double sx) {
-		return new MyPoint(x * sx, y * sx);
+		if(!Double.isNaN(sx)) {
+			return new MyPoint(x * sx, y * sx);
+		} else {
+			return new MyPoint(this);
+		}
 	}
 
 	/**
@@ -108,6 +138,10 @@ public class MyPoint {
 	 * @return The angle or NaN if the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
+
+	    // Retourne un NaN si le point passé en paramètre est null
+        if(pt == null) return Double.NaN;
+
 		double angle;
 		final double x2 = pt.getX() - x;
 		final double y2 = pt.getY() - y;
@@ -135,6 +169,8 @@ public class MyPoint {
 	 */
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
 		if(gravityC == null) return null;
+
+		if (Double.isNaN(theta)) return this;
 
 		final MyPoint pt = new MyPoint();
 		double cosTheta;
@@ -189,6 +225,10 @@ public class MyPoint {
 	 * @return The middle point of the current and given points.
 	 */
 	public MyPoint getMiddlePoint(final MyPoint p) {
+
+	    // Une exception est levée si le point passé en paramètre est null
+        if(p == null) throw new IllegalArgumentException();
+
 		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
 	}
 
@@ -200,8 +240,12 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+
+	    // Le changement de coordonnées ne s'effectue que si les paramètres sont tous les deux des doubles
+        if(!Double.isNaN(tx) && !Double.isNaN(ty)) {
+            setX(x + tx);
+            setY(y + ty);
+        }
 	}
 
 
@@ -211,8 +255,10 @@ public class MyPoint {
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+
+	    // Les coordonnées sont mises à jour avec des doubles pris au hasard
+		setX(random1.nextDouble());
+		setY(random2.nextDouble());
 	}
 
 
