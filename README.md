@@ -60,3 +60,17 @@ Avec Easymock : voir la refcard et les slides du cours.
 2. répondez aux questions (dans le fichier README.md), dans lequel vous préciserez également les noms du binome.
 3. rajoutez vos tests, modifications de la classe sous test, etc. 
 4. soumettez votre pull request (qui servira à l'évaluation)
+
+## Réponses
+
+> Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+
+Comme d'autres opérations sont utilisées, il faut également tester ces opérations, afin de s'assurer de leur fiabilité.
+
+> Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+
+Non, la couverture de code ne suffit pas à assurer la qualité du test. (Il peut par exemple manquer une condition dans un méthode mais le code sera quand même couvert).
+
+> Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
+
+Il n'est pas possible de tester en l'état cette opération parce qu'elle échange des messages avec la méthode nextDouble() de la classe Random. Il faut donc simuler cette classe afin de contrôler le retour de cette méthode. Celà ce fait en utilisant mockito par exemple.
