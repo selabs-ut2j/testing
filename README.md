@@ -1,4 +1,5 @@
 # Object-Oriented Software Testing
+# Lucas Barros
 
 Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
 
@@ -15,19 +16,27 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
 
+> R.1b : Le problème vient du fait que l'on utilise une méthode que l'on a pas encore testé dans un autre test. Cependant on se trouve face à une fonction get, qui a pour but de rendre visible en lecture un élément privé d'une classe. On a pas donc pas besoin de le tester c'est du ressort du langage.
+
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
 > Q.1d Testez le constructeur 3 et l’opération scale. Plusieurs tests (i.e. plusieurs opérations) seront nécessaires pour le constructeur 3. Vous pouvez constater que la plupart des tests nécessitent la création d’un point au début des opérations de test.
 
+> R.1d : On remarque que l'on a pas à tester plusieurs cas avec le constructeur par compie car nous appellons les fonctions setters de x et y pour modifier les valeurs du nouveau point. Sauf que les setters verifie bien que le point de référence possède un x et un y valide (un vrai double contenant une vraie valeure utile)
+
 > Q.1e Définissez et utilisez l’opération @Before setUp() et tout ce qui est également nécessaire pour déléguer cette création à l’opération setUp.
 
 > Q.1f Testez l’opération horizontalSymmetry. Là encore, plusieurs tests (i.e. plusieurs opérations) seront nécessaires. Vous remarquerez que cette opération peut lever une exception. Utilisez le paramètre expected de l’annotation Test pour vérifier que cette exception est bien levée en temps voulu.
+
+> R.1f : Ici encore on ne peut pas tester l'appelle de cette fonction avec un parametre non instancié car java le bloque lors de la compilation. On ne peut donc pas faire le test de la levé d'exception.
 
 ## Couverture de code
 
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+
+> R.2b : Non, évidement le parcours des branches ne vérifies pas tous les cas possibles. Il faudra par exemple faire des tests sur les limites.
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -43,6 +52,8 @@ L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un p
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
+
+> R.3a : On ne peux pas s'assurer de la valeur du random lors du test.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 
