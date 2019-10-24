@@ -30,6 +30,7 @@ C'est étrange néanmoins ces opérations sont des opérations assez simple pour
 > Q.2a Utilisez l’outil de couverture de code fourni dans Eclipse (ou autre IDE) pour identifier les chemins dans le code non couvert par vos tests. Rajoutez quelques tests si besoins (n’y passez pas trop de temps).
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+Non 
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
@@ -45,6 +46,8 @@ L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un p
 
 > Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
+Car les valeurs inserer sont random donc il faut mocker la class random pour etre sur 
+de la valeur de retour.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
 

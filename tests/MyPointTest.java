@@ -183,6 +183,9 @@ class MyPointTest {
 			  this.point2.centralSymmetry(null);
 		  });
 	}
+	@Test public void testCentralSymmetryNULL ( ) {
+        new MyPoint(10, 20).centralSymmetry(null);
+    }
 
 	@Test
 	void testGetMiddlePoint() {
