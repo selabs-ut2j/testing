@@ -60,3 +60,15 @@ Avec Easymock : voir la refcard et les slides du cours.
 2. répondez aux questions (dans le fichier README.md), dans lequel vous préciserez également les noms du binome.
 3. rajoutez vos tests, modifications de la classe sous test, etc. 
 4. soumettez votre pull request (qui servira à l'évaluation)
+
+Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
+
+    Les accesseurs sont des opérations basiques donc on peu leur faire confiance.
+
+Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
+
+	Non cela nous confirme uniquement que les tests sont passés par toutes les lignes mais il peu rester des cas non pris en compte.
+
+Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
+    
+    Il est imposssible de connaitre le résultat de Random.nextInt() à l'avance.
