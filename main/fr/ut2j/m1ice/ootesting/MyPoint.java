@@ -29,8 +29,12 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		if (!(Double.isNaN(x) || Double.isNaN(y))) {
+			this.x = x;
+			this.y = y;
+		}
+
+		// adding nan check value
 	}
 
 
@@ -50,7 +54,10 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		
+		if(!(Double.isNaN(newX))) {
+			x = newX;
+		}
 	}
 
 
@@ -59,7 +66,11 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		//x = newY;
+		
+		if (!(Double.isNaN(newY))) {
+			y = newY;
+		}
 	}
 
 
