@@ -1,9 +1,12 @@
-package main.fr.ut2j.m1ice.ootesting;
+package devopsTP.TP1;
+
 
 import java.util.Random;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.atan;
+
+import java.io.Console;
 
 /**
  * A Basic point with double values.
@@ -41,7 +44,11 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		this();
+		if (pt != null) {
+			this.x = pt.x;
+			this.y = pt.y;
+		}
 	}
 
 
@@ -50,7 +57,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
+		if (!Double.isNaN(newX)) {
 		x = newX;
+		}
 	}
 
 
@@ -59,7 +68,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if (!Double.isNaN(newY)) {
+		y = newY;
+		}
 	}
 
 
@@ -97,7 +108,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d * origin.getY() - y);
 	}
 
 
@@ -109,20 +120,22 @@ public class MyPoint {
 	 */
 	public double computeAngle(final MyPoint pt) {
 		double angle;
-		final double x2 = pt.getX() - x;
-		final double y2 = pt.getY() - y;
+		final double x2 = pt.getX() - this.x;
+		final double y2 = pt.getY() - this.y;
 
 		if(Double.compare(x2, 0d) == 0) {
-			angle = Math.PI / 3d;
-
-			if(y2 < 0d) {
-				angle = Math.PI * 2d - angle;
-			}
-		}else {
-			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
+			return Math.PI / 2d;
 		}
-
-		return angle;
+		if(Double.compare(y2, 0d) == 0) {
+			return Math.PI;
+		}else {
+			
+			if(Double.compare(x2, 0d) < 0) {
+				return Math.PI * atan(-y2 / x2);
+			}else {
+				return Math.PI * atan(y2 / x2);
+			}
+		}
 	}
 
 
