@@ -1,0 +1,5 @@
+.idea/*
+testing.iml
+.attach_pid*
+*.class
+*.kotlin_module

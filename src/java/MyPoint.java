@@ -1,10 +1,7 @@
-package main.fr.ut2j.m1ice.ootesting;
-
 import java.util.Random;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.atan;
-
 /**
  * A Basic point with double values.
  */
@@ -41,7 +38,7 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		this(pt == null ? 0 : pt.x, pt == null ? 0 : pt.y);
 	}
 
 
@@ -50,7 +47,12 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if (isAuthorizedValue(newX))
+			x = newX;
+	}
+
+	private boolean isAuthorizedValue(final  double newX) {
+		return !Double.isNaN(newX) && newX != Double.POSITIVE_INFINITY && newX != Double.NEGATIVE_INFINITY;
 	}
 
 
@@ -59,7 +61,8 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if (isAuthorizedValue(newY))
+			y = newY;
 	}
 
 
@@ -97,7 +100,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+			return new MyPoint(x, 2d * origin.getY() - y);
 	}
 
 
@@ -105,7 +108,7 @@ public class MyPoint {
 	 * Computes the angle of the given point where the calling point is used as
 	 * the gravity centre.
 	 * @param pt The point used to compute the angle.
-	 * @return The angle or NaN if the given point null.
+	 * @return The angle or NaN i	f the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
 		double angle;
@@ -178,9 +181,11 @@ public class MyPoint {
 	 * @return The resulting point.
 	 * @throws IllegalArgumentException When the given parameter is null.
 	 */
-	public MyPoint centralSymmetry(final MyPoint centre) {
-		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+	public MyPoint centralSymmetry(final MyPoint centre) throws IllegalArgumentException {
+		if(centre != null) {
+			return rotatePoint(centre, 2d * Math.PI);
+		}
+		throw new IllegalArgumentException();
 	}
 
 
@@ -189,6 +194,7 @@ public class MyPoint {
 	 * @return The middle point of the current and given points.
 	 */
 	public MyPoint getMiddlePoint(final MyPoint p) {
+		if(p == null) throw new IllegalArgumentException();
 		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
 	}
 
