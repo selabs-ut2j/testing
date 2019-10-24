@@ -15,6 +15,8 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
 
+*Réponse* : Le fait de tester la valeur de X et de Y dans le constructeur n'a aucun sens. Il faut rédiger deux autres test afin de vérifier la position de X puis de Y.
+
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
 > Q.1d Testez le constructeur 3 et l’opération scale. Plusieurs tests (i.e. plusieurs opérations) seront nécessaires pour le constructeur 3. Vous pouvez constater que la plupart des tests nécessitent la création d’un point au début des opérations de test.
@@ -29,6 +31,8 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
 
+*Réponse :* Non, le code ne garantie pas qu'il correspond à ce qui à été demandé. 
+
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
     @Test public void testCentralSymmetryNULL ( ) {
@@ -41,7 +45,8 @@ Cet exercice est une brève introduction au principe du mock.
 
 L’opération setPoint(Random r1, Random r2) définit les coordonnées d’un point de manière aléatoire (x avec r1, et y avec r2).
 
-> Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.
+> Q.3a Expliquez en quoi il est impossible de tester en l’état cette opération.  
+*Réponse :* Il faut dissocier la valeur choisie par rapport à la valeur attendu. C'est à dire que normalement, on ne sait pas quelle est la valeur de sortie attendue.
     >> On veut donc utiliser le principe du Mock pour tester cette opération.
 
 > Q.3b Utilisez Easymock ou Mockito pour tester cette opération. 
