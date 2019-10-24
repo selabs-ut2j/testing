@@ -27,39 +27,61 @@ public class MyPoint {
 	 * @param x The X-coordinate to set.
 	 * @param y The Y-coordinate to set.
 	 */
-	public MyPoint(final double x, final double y) {
+	public MyPoint(final double x, final double y) throws IllegalArgumentException {
 		super();
-		this.x = x;
-		this.y = y;
+		if (Double.isNaN(x) || Double.isNaN(y)) {
+			throw new IllegalArgumentException();
+		}
+		else {
+			this.x = x;
+			this.y = y;
+		}
 	}
 
 
 	/**
 	 * Constructor 3
-	 * Creates a point from a IMyPoint.
+	 * Creates a point from a MyPoint.
 	 * (0,0) will be used when the given pt is null.
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		this(0, 0);
+		if (pt != null) {
+			this.setX(pt.x);
+			this.setY(pt.y);
+		}
 	}
 
 
 	/**
 	 * Sets the X coordinate of the point.
-	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
+	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise x is initialize at 0.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if(!(Double.isNaN(newX))) {
+			x = newX;
+		}
+		else {
+			x = 0d;
+		}
+		//Ajout de la vérification si c'est un double NaN
 	}
 
 
 	/**
 	 * Sets the Y coordinate of the point.
-	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
+	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise y is initialize at 0.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if(!(Double.isNaN(newY))) {
+			y = newY;
+		}
+		else {
+			y = 0d;
+		}
+		//Correction : remplacement de x par y
+		//Ajout de la vérification si c'est un double NaN
 	}
 
 
@@ -97,7 +119,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d*origin.getY() - y);
 	}
 
 
@@ -211,8 +233,8 @@ public class MyPoint {
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+		setX(random1.nextDouble());
+		setY(random2.nextDouble());
 	}
 
 
