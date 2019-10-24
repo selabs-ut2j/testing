@@ -1,5 +1,3 @@
-package main.fr.ut2j.m1ice.ootesting;
-
 import java.util.Random;
 
 import static java.lang.Math.PI;
@@ -50,7 +48,9 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+	    if(!Double.isNaN(newX)) {
+            x = newX;
+        }
 	}
 
 
@@ -59,7 +59,9 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+	    if(!Double.isNaN(newY)){
+		    y = newY;
+		}
 	}
 
 
@@ -95,7 +97,8 @@ public class MyPoint {
 	 * @return the computed point.
 	 * @throws IllegalArgumentException When the given parameter is null.
 	 */
-	public MyPoint horizontalSymmetry(final MyPoint origin) {
+	public MyPoint
+	horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
 		return new MyPoint(2d * origin.getX() - x, y);
 	}
@@ -206,9 +209,9 @@ public class MyPoint {
 
 
 	/**
-	 * Sets a point using random values provided by random.newInt().
-	 * @param random1 The random number generator used for x.
-	 * @param random2 The random number generator used for y.
+	 * Sets a point using r1 values provided by r1.newInt().
+	 * @param random1 The r1 number generator used for x.
+	 * @param random2 The r1 number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
 		setX(random1.nextInt());

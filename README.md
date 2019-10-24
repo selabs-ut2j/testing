@@ -60,3 +60,9 @@ Avec Easymock : voir la refcard et les slides du cours.
 2. répondez aux questions (dans le fichier README.md), dans lequel vous préciserez également les noms du binome.
 3. rajoutez vos tests, modifications de la classe sous test, etc. 
 4. soumettez votre pull request (qui servira à l'évaluation)
+
+## Réponse
+
+> Q.1b Il faudras testé les getter plus tôt
+
+> Q.2b Non il peut tout de même ne pas tout couvrir.
