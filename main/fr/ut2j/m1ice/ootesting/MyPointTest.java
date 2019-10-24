@@ -8,7 +8,10 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
+@RunWith (MockitoJUnitRunner.class)
 class MyPointTest {
 	
 	MyPoint myPointA; // MyPoint with the empty constructor
@@ -17,6 +20,7 @@ class MyPointTest {
 	MyPoint myPointScaled; // needed to created a MyPoint who has scaled
 	MyPoint myPointNan; // needed to create a myPoint who has nan
 	MyPoint myPointSymetry;
+	MyPoint point1;
 	
 	private Double x ;
 	private Double y;
@@ -41,6 +45,7 @@ class MyPointTest {
 		myPointNan = new MyPoint(Double.NaN,3);
 		myPointCp = null;
 		myPointScaled = null;
+		point1 = new MyPoint();
 		
 		
 	}
@@ -150,6 +155,30 @@ class MyPointTest {
 		assertThrows(IllegalArgumentException.class,() -> {
 			new MyPoint(10,20).centralSymmetry(null) ;
 		});
+	}
+	
+	@Test
+	void testSetPoint() {
+		Random rand1 = Mockito.mock(Random.class);
+		Mockito.when((rand1).nextDouble()).thenReturn(3d);
+		
+		Random rand2 = Mockito.mock(Random.class);
+		Mockito.when((rand2).nextDouble()).thenReturn(7d);
+		
+		this.point1.setPoint(rand1, rand2);
+		
+		assertEquals(3.0, this.point1.getX());
+		assertEquals(7.0, this.point1.getY());
+	}
+	
+	@Test
+	void testITranslation() {
+		ITranslation trans = Mockito.mock(ITranslation.class);
+		Mockito.when(trans.getTx()).thenReturn(1);
+		Mockito.when(trans.getTy()).thenReturn(1);
+		this.point1.translate(trans);
+		assertEquals(this.point1.getX(), 1.0);
+		assertEquals(this.point1.getY(), 1.0);
 	}
 	
 
