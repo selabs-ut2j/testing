@@ -13,17 +13,20 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 
 import main.fr.ut2j.m1ice.ootesting.ITranslation;
 import main.fr.ut2j.m1ice.ootesting.MyPoint;
 
-import org.mockito.Mockito.*;
+import org.mockito.Mockito;
+import org.mockito.runners.MockitoJUnitRunner;
 
 
 /**
  * @author valo
  *
  */
+@RunWith(MockitoJUnitRunner.class)
 class MyPointTest {
 
 	private MyPoint point;
@@ -163,8 +166,9 @@ class MyPointTest {
 	}
 
 	@Test
-	void testComputeAngle() {
-		fail("Not yet implemented");
+	void testComputeAngleXEquals0YSup0() {
+		MyPoint pt = new MyPoint(0,5);
+		assertEquals(Math.PI/ 3d, point.computeAngle(pt));
 	}
 
 	@Test
@@ -197,11 +201,14 @@ class MyPointTest {
 
 	@Test
 	void testSetPoint() {
-		Random rd1 = new Random(1);
-		Random rd2 = new Random(1);
-		point.setPoint(rd1, rd2);
-		assertEquals(-1155869325,point.getX());
-		assertEquals(-1155869325,point.getY());
+		Random rand1 = Mockito.mock(Random.class);
+        Mockito.when((rand1).nextDouble()).thenReturn(3d);
+        
+        Random rand2 = Mockito.mock(Random.class);
+        Mockito.when((rand2).nextDouble()).thenReturn(7d);
+		point.setPoint(rand1, rand2);
+		assertEquals(3.0,point.getX());
+		assertEquals(7.0,point.getY());
 	}
 
 	@Test
@@ -214,11 +221,11 @@ class MyPointTest {
 	
 	@Test
 	void testTranslateITranslationNull() {
-		this.point.translate(null);
-		assertEquals(0,point.getX());
-		assertEquals(0,point.getY());
+		ITranslation trans = Mockito.mock(ITranslation.class);
+        Mockito.when(trans.getTx()).thenReturn(1);
+        Mockito.when(trans.getTy()).thenReturn(1);
+        this.point.translate(trans);
+        assertEquals(this.point.getX(), 1.0);
+        assertEquals(this.point.getY(), 1.0);
 	}
-	
-	
-
 }
