@@ -1,5 +1,9 @@
 # Object-Oriented Software Testing
 
+**Binome : Ancelin GLORIES (seul)**
+
+***
+
 Master 1 ICE, GLa - V&V - Labs ([course materials](http://combemale.fr/course/m1ice/))
 
 > Créez un projet Java, récupérez la classe MyPoint, et rajoutez la librairie JUnit à votre projet. 
