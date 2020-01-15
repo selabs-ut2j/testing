@@ -1,4 +1,8 @@
-package main.fr.ut2j.m1ice.ootesting;
+package testing;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import testing.ITranslation;
 
 import java.util.Random;
 
@@ -8,7 +12,11 @@ import static java.lang.Math.atan;
 /**
  * A Basic point with double values.
  */
+
 public class MyPoint {
+
+	private static final Logger LOGGER = LogManager.getLogger(MyPoint.class.getName());
+
 	private double x;
 	private double y;
 
@@ -31,6 +39,7 @@ public class MyPoint {
 		super();
 		this.x = x;
 		this.y = y;
+		LOGGER.trace("trace");
 	}
 
 
@@ -41,16 +50,30 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		//this(pt == null ? 0 : pt.x, pt == null ? 0 : pt.y);
+
+		if ( pt == null){
+			this.x = 0;
+			this.y = 0;
+		}
+		else{
+			this.x = pt.x;
+			this.y = pt.y;
+		}
 	}
 
+
+	private boolean isNanValue(double value){
+		return !(Double.isNaN(value) || Double.isInfinite(value));
+	}
 
 	/**
 	 * Sets the X coordinate of the point.
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if (isNanValue(newX))
+			x = newX;
 	}
 
 
@@ -59,7 +82,8 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if (isNanValue(newY))
+			y = newY;
 	}
 
 
@@ -97,7 +121,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint( x , 2*origin.getY() - y);
 	}
 
 
@@ -108,18 +132,14 @@ public class MyPoint {
 	 * @return The angle or NaN if the given point null.
 	 */
 	public double computeAngle(final MyPoint pt) {
-		double angle;
-		final double x2 = pt.getX() - x;
-		final double y2 = pt.getY() - y;
 
-		if(Double.compare(x2, 0d) == 0) {
-			angle = Math.PI / 3d;
+		if (pt == null){
+			return Double.NaN;
+		}
+		float angle = (float) Math.toDegrees(Math.atan2(pt.y - y, pt.x - x));
 
-			if(y2 < 0d) {
-				angle = Math.PI * 2d - angle;
-			}
-		}else {
-			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
+		if(angle < 0){
+			angle += 360;
 		}
 
 		return angle;
@@ -134,7 +154,7 @@ public class MyPoint {
 	 * @since 1.9
 	 */
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
-		if(gravityC == null) return null;
+		if(gravityC == null || Double.isNaN(theta)) return null;
 
 		final MyPoint pt = new MyPoint();
 		double cosTheta;
@@ -144,7 +164,7 @@ public class MyPoint {
 		final double gy = gravityC.getX();
 
 		if(angle < 0d) {
-			angle = 2d * PI + angle;
+			angle += 2d * PI;
 		}
 
 		angle = angle % (2d * PI);
@@ -180,7 +200,7 @@ public class MyPoint {
 	 */
 	public MyPoint centralSymmetry(final MyPoint centre) {
 		if(centre == null) throw new IllegalArgumentException();
-		return rotatePoint(centre, 2d * Math.PI);
+		return rotatePoint(centre,  Math.PI);
 	}
 
 
@@ -200,8 +220,11 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+
+		if(! Double.isNaN(tx) && ! Double.isNaN(ty)) {
+			setX(x + tx);
+			setY(y + ty);
+		}
 	}
 
 
