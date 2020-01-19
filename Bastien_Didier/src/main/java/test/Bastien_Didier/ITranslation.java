@@ -1,5 +1,4 @@
-package main.fr.ut2j.m1ice.ootesting;
-
+package test.Bastien_Didier;
 public interface ITranslation {
 	int getTx();
 

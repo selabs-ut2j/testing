@@ -1,5 +1,4 @@
-package main.fr.ut2j.m1ice.ootesting;
-
+package test.Bastien_Didier;
 import java.util.Random;
 
 import static java.lang.Math.PI;
@@ -29,8 +28,11 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		if(!Double.isNaN(x) && !Double.isNaN(y)) {
+			this.x = x;
+			this.y = y;
+		}
+		
 	}
 
 
@@ -41,7 +43,21 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		super();
+		if(pt != null) {
+			
+			this.x = pt.x;
+			this.y = pt.y;
+			
+		}
+		else
+		{
+			
+			this.x = 0;
+			this.y = 0;
+			
+		}
+		
 	}
 
 
@@ -50,7 +66,11 @@ public class MyPoint {
 	 * @param newX The new X coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setX(final double newX) {
-		x = newX;
+		if(!Double.isNaN(newX))
+		{
+			x = newX;
+		}
+		
 	}
 
 
@@ -59,7 +79,10 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		if(!Double.isNaN(newY)) {
+			y = newY;
+		}
+
 	}
 
 
@@ -109,19 +132,29 @@ public class MyPoint {
 	 */
 	public double computeAngle(final MyPoint pt) {
 		double angle;
-		final double x2 = pt.getX() - x;
-		final double y2 = pt.getY() - y;
+		
+		if(pt != null) {
+			
+			final double x2 = pt.getX() - x;
+			final double y2 = pt.getY() - y;
 
-		if(Double.compare(x2, 0d) == 0) {
-			angle = Math.PI / 3d;
+			if(Double.compare(x2, 0d) == 0) {
+				angle = Math.PI / 3d;
 
-			if(y2 < 0d) {
-				angle = Math.PI * 2d - angle;
+				if(y2 < 0d) {
+					angle = Math.PI * 2d - angle;
+				}
+			}else {
+				angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
 			}
-		}else {
-			angle = x2 < 0d ? Math.PI - atan(-y2 / x2) : atan(y2 / x2);
+			
 		}
-
+		else
+		{
+			
+			angle = Math.sqrt(-51);	
+		}
+		
 		return angle;
 	}
 
@@ -134,42 +167,45 @@ public class MyPoint {
 	 * @since 1.9
 	 */
 	public MyPoint rotatePoint(final MyPoint gravityC, final double theta) {
-		if(gravityC == null) return null;
+	
+			if(gravityC == null) return null;
 
-		final MyPoint pt = new MyPoint();
-		double cosTheta;
-		double sinTheta;
-		double angle = theta;
-		final double gx = gravityC.getX();
-		final double gy = gravityC.getX();
+			final MyPoint pt = new MyPoint();
+			double cosTheta;
+			double sinTheta;
+			double angle = Double.isNaN(theta) ? 0 : theta;
+			final double gx = gravityC.getX();
+			final double gy = gravityC.getX();
 
-		if(angle < 0d) {
-			angle = 2d * PI + angle;
-		}
+			if(angle < 0d) {
+				angle = 2d * PI + angle;
+			}
 
-		angle = angle % (2d * PI);
+			angle = angle % (2d * PI);
 
-		if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
+			if(Double.compare(angle, 0d) == 0) return new MyPoint(this);
 
-		if(Double.compare(angle - PI / 2d, 0.) == 0) {
-			cosTheta = 0d;
-			sinTheta = 1d;
-		}else if(Double.compare(angle - PI, 0d) == 0) {
-			cosTheta = -1d;
-			sinTheta = 0d;
-		}else if(Double.compare(angle - (3d * PI / 2d), 0d) == 0) {
-			cosTheta = 0d;
-			sinTheta = -1d;
-		}else {
-			cosTheta = Math.cos(angle);
-			sinTheta = Math.sin(angle);
-		}
-
-		pt.setX(cosTheta * (x - gx) - sinTheta * (y - gy) + gx);
-		pt.setY(sinTheta * (x - gx) + cosTheta * (y - gy) + gy);
-
-		return pt;
-	}
+			if(Double.compare(angle - PI / 2d, 0.) == 0) {
+				cosTheta = 0d;
+				sinTheta = 1d;
+			}else if(Double.compare(angle - PI, 0d) == 0) {
+				cosTheta = -1d;
+				sinTheta = 0d;
+			}else if(Double.compare(angle - (3d * PI / 2d), 0d) == 0) {
+				cosTheta = 0d;
+				sinTheta = -1d;
+			}else {
+				cosTheta = Math.cos(angle);
+				sinTheta = Math.sin(angle);
+			}
+			
+				pt.setX(cosTheta * (x - gx) - sinTheta * (y - gy) + gx);
+				pt.setY(sinTheta * (x - gx) + cosTheta * (y - gy) + gy);
+			
+				
+			return pt;
+		
+}
 
 
 	/**
@@ -189,7 +225,14 @@ public class MyPoint {
 	 * @return The middle point of the current and given points.
 	 */
 	public MyPoint getMiddlePoint(final MyPoint p) {
-		return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
+		if(p == null) {
+			return new MyPoint(0,0);
+		}
+		else
+		{
+			return new MyPoint((x + p.getX()) / 2d, (y + p.getY()) / 2d);
+		}
+		
 	}
 
 
@@ -200,8 +243,13 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+			
+		if(!Double.isNaN(tx) && !Double.isNaN(ty)) {
+			
+			setX(x + tx);
+			setY(y + ty);
+			
+		}	
 	}
 
 
@@ -211,8 +259,9 @@ public class MyPoint {
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+		
+				this.setX(random1.nextDouble());
+				this.setY(random2.nextDouble());
 	}
 
 
@@ -222,7 +271,12 @@ public class MyPoint {
 	 */
 	public void translate(final ITranslation translation) {
 		if(translation != null) {
-			translate(translation.getTx(), translation.getTy());
+			try {
+				translate(translation.getTx(), translation.getTy());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 }
