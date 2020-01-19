@@ -15,7 +15,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.1b Le test de ces constructeurs utilisent les opérations getX et getY. Ne trouvez-vous pas cela étrange qu’un test utilise d’autres opérations ? Que faire ?
 
-    Non le seul moyen d'empecher cela serait de changer la portée des variables  private -> public. 
+    Non,  les variables étant privée elle ne sont accessible que par la classe elle meme le seul moyen d'empecher cela serait de changer la portée des variables  private -> public. 
 
 > Q.1c Testez les accesseurs en lecture et écriture (les opérations get et set). Tout d’abord, testez getX et setX ensemble (car elles sont liées, idem pour y). Ensuite créez d’autres tests pour tester les opérations set avec la valeur Double.NaN (cf. la javadoc de ces opérations).
 
@@ -31,7 +31,7 @@ comprendre le comportement attendu des constructeurs. Utilisez des assertions po
 
 > Q.2b Est-ce que votre code est sûr lorsque toutes les instructions sont couvertes par au moins un test ?
 
-Non le code n'est pas sur ,car il faudrait verifier que les tests soient corrects, et que les tests au limites ont bien été effectués.
+Non, Une bonne couverture de code ne certifie pas qu'un code est sur. Une bonne couverture du code est juste un indicateur sur la quantité de tests et non leurs qualitées, du mutation testing pourrait etre utilisé afin de verifier la fiabilité de ces tests a détecter des erreurs, le % de mutant attrapés serait un indicateur couplé avec la couverture de code bien plus fiable. Sans Envsagez du mutation testing il faudrait s'assurer que des tests aux limites ont été effectués ainsi que des tests avec des valeurs aléatoires, et s'assurer que les tests ne verifie uniquement le fonctionnement interne d'une solution.Malgrés tout cela meme un code dont les tests passent n'est pas sur , les tests sont un juste un moyen pour le developeur de déplacer l'erreur du code vers les tests et de réduire dans le meme temps la complexité des erreurs possibles (En général, un code de test est plus simple a débuguer que le code qu'il teste).
 
 > Q.2c Ajoutez le test unitaire suivant et exécutez-le. S’il passe, bien joué. Dans tout les cas cela peut certainement vous aidez à répondre à la question précédente.
 
