@@ -29,10 +29,11 @@ public class MyPoint {
 	 */
 	public MyPoint(final double x, final double y) {
 		super();
-		this.x = x;
-		this.y = y;
+		if (!(Double.isNaN(x)) && !(Double.isNaN(y))) {
+			this.x = x;
+			this.y = y;
+		}
 	}
-
 
 	/**
 	 * Constructor 3
@@ -41,7 +42,11 @@ public class MyPoint {
 	 * @param pt The IMyPoint, if null the default value (0,0) will be used.
 	 */
 	public MyPoint(final MyPoint pt) {
-		this(pt.x, pt.y);
+		super();
+		if(!(pt == null)) {
+			this.x = pt.x;
+			this.y = pt.y;
+		}
 	}
 
 
@@ -59,7 +64,7 @@ public class MyPoint {
 	 * @param newY The new Y coordinate. Must be valid (not equal Double.NaN), otherwise nothing is done.
 	 */
 	public void setY(final double newY) {
-		x = newY;
+		y = newY;
 	}
 
 
@@ -86,7 +91,10 @@ public class MyPoint {
 	 * @since 3.0
 	 */
 	public MyPoint scale(final double sx) {
-		return new MyPoint(x * sx, y * sx);
+		if(!(Double.isNaN(sx))){
+			return new MyPoint(x * sx, y * sx);
+		}
+		return this;
 	}
 
 	/**
@@ -97,7 +105,7 @@ public class MyPoint {
 	 */
 	public MyPoint horizontalSymmetry(final MyPoint origin) {
 		if(origin == null) throw new IllegalArgumentException();
-		return new MyPoint(2d * origin.getX() - x, y);
+		return new MyPoint(x, 2d * origin.getY() - y);
 	}
 
 
@@ -200,8 +208,10 @@ public class MyPoint {
 	 * @param ty The Y translation.
 	 */
 	public void translate(final double tx, final double ty) {
-		setX(x + tx);
-		setY(y + ty);
+		if (!(Double.isNaN(tx)) && !(Double.isNaN(ty))) {
+			setX(x + tx);
+			setY(y + ty);
+		}
 	}
 
 
@@ -211,8 +221,8 @@ public class MyPoint {
 	 * @param random2 The random number generator used for y.
 	 */
 	public void setPoint(final Random random1, final Random random2) {
-		setX(random1.nextInt());
-		setY(random2.nextInt());
+		setX(random1.nextDouble());
+		setY(random2.nextDouble());
 	}
 
 
